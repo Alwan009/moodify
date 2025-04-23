@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodify - Music Playlist Recommender</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#8B5CF6', // Purple
+                            dark: '#A78BFA'
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold mb-2 text-primary-light dark:text-primary-dark">Moodify</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300">Find the perfect playlist for your mood</p>
+        </header>
+
+        <div class="theme-toggle absolute top-4 right-4">
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                <!-- Sun icon for dark mode -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <!-- Moon icon for light mode -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-200 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <form id="playlist-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="mood" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mood</label>
+                        <select id="mood" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent">
+                            <option value="" disabled selected>Select your mood</option>
+                            <option value="happy">Happy</option>
+                            <option value="sad">Sad</option>
+                            <option value="chill">Chill</option>
+                            <option value="energetic">Energetic</option>
+                            <option value="focused">Focused</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language</label>
+                        <select id="language" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent">
+                            <option value="" disabled selected>Select language</option>
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="arabic">Arabic</option>
+                            <option value="korean">Korean</option>
+                            <option value="french">French</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="country" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country</label>
+                        <select id="country" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent">
+                            <option value="" disabled selected>Select country</option>
+                            <option value="usa">USA</option>
+                            <option value="morocco">Morocco</option>
+                            <option value="brazil">Brazil</option>
+                            <option value="japan">Japan</option>
+                            <option value="korea">South Korea</option>
+                            <option value="spain">Spain</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="px-6 py-3 bg-primary-light dark:bg-primary-dark text-white font-medium rounded-md hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light dark:focus:ring-primary-dark">
+                        Show Playlist
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="results" class="hidden">
+            <h2 class="text-2xl font-bold mb-4 text-center">Your Personalized Playlist</h2>
+            <div id="playlist-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Playlist videos will be inserted here -->
+            </div>
+        </div>
+
+        <div id="no-results" class="hidden text-center py-8">
+            <p class="text-lg text-gray-600 dark:text-gray-400">No playlists found for this combination. Try a different selection!</p>
+        </div>
+    </div>
+
+    <footer class="mt-12 py-6 text-center text-gray-500 dark:text-gray-400 text-sm">
+        <p>© 2023 Moodify - Find your perfect playlist</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
