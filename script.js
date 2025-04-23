@@ -45,6 +45,12 @@ const playlists = {
     happy_jazz_usa: ['vmDDOFXSgAs', 'QhHrC8-4oSo', 'rXwkBvHpCm0', 'SS6mPWZf58I', 'CWzrABouyeE'],
     happy_pop_morocco: ['k5qht2iHBw4', 'jDGUuWSm_KA', 'pTuS8WdJonw', 'ZuXhbIQXNdU', 'Wd_MtxEFw7E'],
     happy_pop_spain: ['kJQP7kiw5Fk', '9jI-z9QN6g8', 'aJOTlE1K90k', '6Mgqbai3fKo', 'pRpeEdMmmQ0'],
+    happy_edm_usa: ['gCYcHz2k5x0', 'KQ6zr6kCPj8', 'qrOeGCJdZe4', '60ItHLz5WEA', 'fKopy74weus'],
+    happy_hiphop_usa: ['xpVfcZ0ZcFM', 'JZjAg6fK-BQ', '_Yhyp-_hX2s', '9vMLTcftlyI', 'tvTRZJ-4EyI'],
+    happy_reggae_usa: ['zaGUr6wzyT8', 'lZBaklS79Wc', 'wQ3UrRl7tXs', 'zV3qWty6FL0', 'zXt56MB-3vc'],
+    happy_classical_usa: ['9E6b3swbnWg', 'liTSRH4fix4', 'XfhdmTVzcQQ', 'NlprozGcs80', 'KUlKuKx4GxA'],
+    happy_blues_usa: ['IXdNnw99-Ic', '94IdHH9GF_Q', 'cJunCsrhJjg', '71Gt46aX9Z4', 'ZrjWxZ7i5IU'],
+    happy_metal_usa: ['CSvFpBOe8eY', 'WM8bTdBs-cw', 'v2AC41dglnM', 'l482T0yNkeo', 'kXYiU_JCYtU'],
 
     // Sad mood
     sad_pop_usa: ['hLQl3WQQoQ0', 'SR6iYWJxHqs', 'fvEZUbzqqyM', 'bpOSxM0rNPM', 'QNJL6nfu__Q'],
@@ -52,6 +58,11 @@ const playlists = {
     sad_jazz_usa: ['PJ8y9LhgY0s', 'CWzrABouyeE', 'rgnXuKWocJ0', 'ss0M9gg4_Vg', 'PLS2suJ1M6Qs4KfpRKLpUvTrHOeGP0dKQH'],
     sad_classical_usa: ['4Tr0otuiQuU', 'aWIE0PX1uXk', 'KUlKuKx4GxA', 'NlprozGcs80', 'XfhdmTVzcQQ'],
     sad_blues_usa: ['IXdNnw99-Ic', '94IdHH9GF_Q', 'cJunCsrhJjg', '71Gt46aX9Z4', 'ZrjWxZ7i5IU'],
+    sad_pop_morocco: ['CVyXLkPjJL0', 'QOYhD0-QZQE', 'Fpn1imb9qZg', 'ZuqUtOnYn3c', 'Wd_MtxEFw7E'],
+    sad_pop_spain: ['AMsHzVuIpn8', 'sDHt-jLEeRs', 'kN0iD0pI3o0', 'USKDmvOw1R0', 'GP8n3o2Hy-Q'],
+    sad_pop_japan: ['eN5mG_yMDiM', 'NMdTd9e-LEI', 'D_nyuB8GpyQ', 'mZz9uYdj_v4', 'dYRqIAuC9gY'],
+    sad_hiphop_usa: ['bmVKaAV_7-A', 'hLQl3WQQoQ0', 'SR6iYWJxHqs', 'fvEZUbzqqyM', 'bpOSxM0rNPM'],
+    sad_metal_usa: ['CSvFpBOe8eY', 'WM8bTdBs-cw', 'v2AC41dglnM', 'l482T0yNkeo', 'kXYiU_JCYtU'],
 
     // Chill mood
     chill_pop_usa: ['3AtDtfuLRHE', 'TGan48YE9Us', 'KWZGAExj-es', 'w1oM3kQpXRo', 'jfKfPfyJRdk'],
@@ -59,6 +70,12 @@ const playlists = {
     chill_edm_usa: ['tJXPfNDVF4I', 'UpHaIcl6PxE', 'tCXGJQYZ9JA', 'D7ztZ_qhx5Q', 'q76bMs-NwRk'],
     chill_reggae_usa: ['zaGUr6wzyT8', 'lZBaklS79Wc', 'wQ3UrRl7tXs', 'zV3qWty6FL0', 'zXt56MB-3vc'],
     chill_classical_usa: ['9E6b3swbnWg', 'liTSRH4fix4', 'XfhdmTVzcQQ', 'NlprozGcs80', 'KUlKuKx4GxA'],
+    chill_rock_usa: ['tuK6n2Lkza0', 'ZyhrYis509A', 'lDK9QqIzhwk', 'btPJPFnesV4', 'Soa3gO7tL-c'],
+    chill_hiphop_usa: ['bmVKaAV_7-A', 'hLQl3WQQoQ0', 'SR6iYWJxHqs', 'fvEZUbzqqyM', 'bpOSxM0rNPM'],
+    chill_blues_usa: ['IXdNnw99-Ic', '94IdHH9GF_Q', 'cJunCsrhJjg', '71Gt46aX9Z4', 'ZrjWxZ7i5IU'],
+    chill_pop_morocco: ['2-sP_6Nev8A', 'QOYhD0-QZQE', 'Fpn1imb9qZg', 'ZuqUtOnYn3c', 'Wd_MtxEFw7E'],
+    chill_pop_spain: ['TapXs54Ah3E', 'yyRJcO4bv9s', 'kJQP7kiw5Fk', 'DkeiKbqa02g', 'aJOTlE1K90k'],
+    chill_pop_japan: ['U9Q1mwi5Xk0', 'D1PvIWdJ8xo', 'mZz9uYdj_v4', 'dYRqIAuC9gY', 'D_nyuB8GpyQ'],
 
     // Energetic mood
     energetic_rock_usa: ['btPJPFnesV4', 'VcDy8HEg1QY', 'Gs069dndIYk', 'gCYcHz2k5x0', 'KQ6zr6kCPj8'],
@@ -66,13 +83,23 @@ const playlists = {
     energetic_metal_usa: ['CSvFpBOe8eY', 'WM8bTdBs-cw', 'v2AC41dglnM', 'l482T0yNkeo', 'kXYiU_JCYtU'],
     energetic_edm_usa: ['gCYcHz2k5x0', 'KQ6zr6kCPj8', 'qrOeGCJdZe4', '60ItHLz5WEA', 'fKopy74weus'],
     energetic_hiphop_usa: ['xpVfcZ0ZcFM', 'JZjAg6fK-BQ', '_Yhyp-_hX2s', '9vMLTcftlyI', 'tvTRZJ-4EyI'],
+    energetic_jazz_usa: ['vmDDOFXSgAs', 'QhHrC8-4oSo', 'rXwkBvHpCm0', 'SS6mPWZf58I', 'CWzrABouyeE'],
+    energetic_reggae_usa: ['zaGUr6wzyT8', 'lZBaklS79Wc', 'wQ3UrRl7tXs', 'zV3qWty6FL0', 'zXt56MB-3vc'],
+    energetic_pop_morocco: ['k5qht2iHBw4', 'jDGUuWSm_KA', 'pTuS8WdJonw', 'ZuXhbIQXNdU', 'Wd_MtxEFw7E'],
+    energetic_pop_spain: ['kJQP7kiw5Fk', '9jI-z9QN6g8', 'aJOTlE1K90k', '6Mgqbai3fKo', 'pRpeEdMmmQ0'],
+    energetic_pop_japan: ['9bZkp7q19f0', 'gdZLi9oWNZg', 'mPVDGOVjRQ0', 'V2hlQkVJZhE', 'bw9CALKOvAI'],
 
     // Focused mood
     focused_classical_usa: ['9E6b3swbnWg', 'liTSRH4fix4', 'XfhdmTVzcQQ', 'NlprozGcs80', 'KUlKuKx4GxA'],
     focused_jazz_usa: ['neV3EPgvZ3g', 'Dx5qFachd3A', 'VMDDOFXSgAs', 'SS6mPWZf58I', 'CWzrABouyeE'],
     focused_edm_usa: ['5qap5aO4i9A', 'DWcJFNfaw9c', 'lTRiuFIWV54', 'tNkZsRW7h2c', 'jfKfPfyJRdk'],
     focused_rock_usa: ['tuK6n2Lkza0', 'ZyhrYis509A', 'lDK9QqIzhwk', 'btPJPFnesV4', 'Soa3gO7tL-c'],
-    focused_hiphop_usa: ['bmVKaAV_7-A', 'hLQl3WQQoQ0', 'SR6iYWJxHqs', 'fvEZUbzqqyM', 'bpOSxM0rNPM']
+    focused_hiphop_usa: ['bmVKaAV_7-A', 'hLQl3WQQoQ0', 'SR6iYWJxHqs', 'fvEZUbzqqyM', 'bpOSxM0rNPM'],
+    focused_pop_usa: ['3AtDtfuLRHE', 'TGan48YE9Us', 'KWZGAExj-es', 'w1oM3kQpXRo', 'jfKfPfyJRdk'],
+    focused_blues_usa: ['IXdNnw99-Ic', '94IdHH9GF_Q', 'cJunCsrhJjg', '71Gt46aX9Z4', 'ZrjWxZ7i5IU'],
+    focused_pop_morocco: ['2-sP_6Nev8A', 'QOYhD0-QZQE', 'Fpn1imb9qZg', 'ZuqUtOnYn3c', 'Wd_MtxEFw7E'],
+    focused_pop_spain: ['TapXs54Ah3E', 'yyRJcO4bv9s', 'kJQP7kiw5Fk', 'DkeiKbqa02g', 'aJOTlE1K90k'],
+    focused_pop_japan: ['U9Q1mwi5Xk0', 'D1PvIWdJ8xo', 'mZz9uYdj_v4', 'dYRqIAuC9gY', 'D_nyuB8GpyQ']
 };
 
 // Display a random music fact
@@ -307,29 +334,56 @@ function displayPlaylist(mood, musicType, country) {
     // Create the key for the playlists object
     const playlistKey = `${mood}_${musicType}_${country}`;
 
-    // Check if we have a playlist for this combination
+    // Try to find the exact match first
     if (playlists[playlistKey] && playlists[playlistKey].length > 0) {
-        // Show results section, hide no results message
-        resultsSection.classList.remove('hidden');
-        noResultsMessage.classList.add('hidden');
-
-        // Get up to 5 videos for this playlist
-        const videos = playlists[playlistKey].slice(0, 5);
-
-        // Create and append video embeds
-        videos.forEach(videoId => {
-            const videoEmbed = createVideoEmbed(videoId);
-            playlistContainer.appendChild(videoEmbed);
-        });
-
-        // Scroll to results
-        resultsSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        // Show no results message, hide results section
-        resultsSection.classList.add('hidden');
-        noResultsMessage.classList.remove('hidden');
-        noResultsMessage.scrollIntoView({ behavior: 'smooth' });
+        displayVideos(playlists[playlistKey]);
+        return;
     }
+
+    // If no exact match, try with USA as default country
+    const usaKey = `${mood}_${musicType}_usa`;
+    if (playlists[usaKey] && playlists[usaKey].length > 0) {
+        displayVideos(playlists[usaKey]);
+        return;
+    }
+
+    // If still no match, try with pop as default music type
+    const popKey = `${mood}_pop_${country}`;
+    if (playlists[popKey] && playlists[popKey].length > 0) {
+        displayVideos(playlists[popKey]);
+        return;
+    }
+
+    // If still no match, try with pop and USA as defaults
+    const popUsaKey = `${mood}_pop_usa`;
+    if (playlists[popUsaKey] && playlists[popUsaKey].length > 0) {
+        displayVideos(playlists[popUsaKey]);
+        return;
+    }
+
+    // If all else fails, show no results message
+    resultsSection.classList.add('hidden');
+    noResultsMessage.classList.remove('hidden');
+    noResultsMessage.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Helper function to display videos
+function displayVideos(videoList) {
+    // Show results section, hide no results message
+    resultsSection.classList.remove('hidden');
+    noResultsMessage.classList.add('hidden');
+
+    // Get up to 5 videos for this playlist
+    const videos = videoList.slice(0, 5);
+
+    // Create and append video embeds
+    videos.forEach(videoId => {
+        const videoEmbed = createVideoEmbed(videoId);
+        playlistContainer.appendChild(videoEmbed);
+    });
+
+    // Scroll to results
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Form submission handler
@@ -415,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if we need to force a refresh for mobile browsers
     const lastVersion = localStorage.getItem('moodify-version');
-    const currentVersion = '1.1'; // Update this when making changes
+    const currentVersion = '1.2'; // Update this when making changes
 
     if (lastVersion !== currentVersion) {
         localStorage.setItem('moodify-version', currentVersion);
