@@ -21,13 +21,33 @@
         }
     </script>
     <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <header class="text-center mb-10">
+        <header class="text-center mb-6">
             <h1 class="text-4xl font-bold mb-2 text-primary-light dark:text-primary-dark">Moodify</h1>
             <p class="text-lg text-gray-600 dark:text-gray-300">Find the perfect playlist for your mood</p>
         </header>
+
+        <!-- Music Fact Section -->
+        <div id="music-fact" class="bg-indigo-50 dark:bg-indigo-900/30 rounded-lg p-4 mb-8 text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">🎵 Did you know?</p>
+            <p id="fact-text" class="text-gray-700 dark:text-gray-300 italic">Loading a random music fact...</p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="mb-6 flex justify-center">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" id="recommendations-tab" class="tab-active px-5 py-2.5 text-sm font-medium rounded-l-lg">
+                    🎧 Recommendations
+                </button>
+                <button type="button" id="favorites-tab" class="tab-inactive px-5 py-2.5 text-sm font-medium rounded-r-lg">
+                    ❤️ My Favorites
+                </button>
+            </div>
+        </div>
 
         <div class="theme-toggle absolute top-4 right-4">
             <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
@@ -57,14 +77,18 @@
                         </select>
                     </div>
                     <div>
-                        <label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language</label>
-                        <select id="language" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent">
-                            <option value="" disabled selected>Select language</option>
-                            <option value="english">English</option>
-                            <option value="spanish">Spanish</option>
-                            <option value="arabic">Arabic</option>
-                            <option value="korean">Korean</option>
-                            <option value="french">French</option>
+                        <label for="music-type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Music Type</label>
+                        <select id="music-type" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent">
+                            <option value="" disabled selected>Select music type</option>
+                            <option value="pop">Pop</option>
+                            <option value="rock">Rock</option>
+                            <option value="jazz">Jazz</option>
+                            <option value="classical">Classical</option>
+                            <option value="hiphop">Hip-Hop</option>
+                            <option value="edm">EDM</option>
+                            <option value="reggae">Reggae</option>
+                            <option value="metal">Metal</option>
+                            <option value="blues">Blues</option>
                         </select>
                     </div>
                     <div>
@@ -88,21 +112,40 @@
             </form>
         </div>
 
-        <div id="results" class="hidden">
-            <h2 class="text-2xl font-bold mb-4 text-center">Your Personalized Playlist</h2>
-            <div id="playlist-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Playlist videos will be inserted here -->
+        <!-- Recommendations Tab Content -->
+        <div id="recommendations-content">
+            <div id="results" class="hidden">
+                <h2 class="text-2xl font-bold mb-4 text-center">Your Personalized Playlist</h2>
+                <div id="playlist-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Playlist videos will be inserted here -->
+                </div>
+            </div>
+
+            <div id="no-results" class="hidden text-center py-8">
+                <p class="text-lg text-gray-600 dark:text-gray-400">No playlists found for this combination. Try a different selection!</p>
             </div>
         </div>
 
-        <div id="no-results" class="hidden text-center py-8">
-            <p class="text-lg text-gray-600 dark:text-gray-400">No playlists found for this combination. Try a different selection!</p>
+        <!-- Favorites Tab Content -->
+        <div id="favorites-content" class="hidden">
+            <h2 class="text-2xl font-bold mb-4 text-center">Your Favorite Songs</h2>
+            <div id="favorites-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Favorite videos will be inserted here -->
+            </div>
+            <div id="no-favorites" class="text-center py-8">
+                <p class="text-lg text-gray-600 dark:text-gray-400">You haven't added any favorites yet. Heart a song to add it here!</p>
+            </div>
         </div>
     </div>
 
     <footer class="mt-12 py-6 text-center text-gray-500 dark:text-gray-400 text-sm">
         <p>© 2023 Moodify - Find your perfect playlist</p>
     </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300">
+        <p>Link copied to clipboard!</p>
+    </div>
 
     <script src="script.js"></script>
 </body>
