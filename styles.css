@@ -53,6 +53,29 @@ html {
     }
 }
 
+/* AI search input styles */
+#ai-prompt {
+    transition: all 0.3s ease;
+}
+
+#ai-prompt:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+#ai-search-btn {
+    white-space: nowrap;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
 .favorite-btn {
     background-color: #f9fafb;
     color: #6b7280;
