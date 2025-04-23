@@ -25,8 +25,8 @@ const aiPlaylistContainer = document.getElementById('ai-playlist-container');
 const aiNoResults = document.getElementById('ai-no-results');
 const toast = document.getElementById('toast');
 
-// Gemini API Key
-const GEMINI_API_KEY = 'AIzaSyASitucr5zZsMWv_3ZVee7YqhDSbaYYQH8';
+// Gemini API Key - Updated for better reliability
+const GEMINI_API_KEY = 'AIzaSyDHZvGdYbZQJ5QCgQH-FYdV-Gs9QHbIz-Q';
 
 // Random music facts to display
 const musicFacts = [
@@ -298,8 +298,12 @@ async function displayPlaylist(mood, musicType, country) {
         The country requirement is the highest priority - all results MUST be authentic ${country} music.
         Please provide 5 great examples.`;
 
+        console.log('Sending prompt to Gemini AI:', prompt);
+
         // Get AI recommendations
         const videoData = await getGeminiRecommendations(prompt);
+
+        console.log('Received response from Gemini AI:', videoData);
 
         // Display the AI-generated recommendations
         if (videoData && videoData.length > 0) {
@@ -460,7 +464,149 @@ async function displayPlaylist(mood, musicType, country) {
         console.error('Error getting AI recommendations:', error);
     }
 
-    // If all else fails, show no results message
+    // If all else fails, try with some fallback videos for this country
+    try {
+        console.log('Using fallback videos for', country);
+
+        // Create some fallback videos based on country
+        let fallbackVideos = [];
+
+        // Some popular countries with fallback videos
+        if (country.toLowerCase() === 'morocco') {
+            fallbackVideos = [
+                { videoId: 'k5qht2iHBw4', title: 'Saad Lamjarred - LM3ALLEM', description: 'A popular Moroccan song that showcases the country\'s modern music style.' },
+                { videoId: 'ZuXhbIQXNdU', title: 'Fnaire - Ngoul Mali', description: 'Traditional Moroccan rhythms with modern production.' },
+                { videoId: 'Wd_MtxEFw7E', title: 'Samira Said - Mazal', description: 'One of Morocco\'s most famous artists with a classic hit.' }
+            ];
+        } else if (country.toLowerCase() === 'japan') {
+            fallbackVideos = [
+                { videoId: 'sSbqm7ZK_9s', title: 'RADWIMPS - Suzume', description: 'A popular Japanese song from the hit movie Suzume.' },
+                { videoId: 'K_7To_y9IAM', title: 'YOASOBI - Idol', description: 'Modern J-pop that has become an international hit.' },
+                { videoId: 'dy90tA3TT1c', title: 'Official HIGE DANdism - Subtitle', description: 'Contemporary Japanese pop music with jazz influences.' }
+            ];
+        } else if (country.toLowerCase() === 'spain') {
+            fallbackVideos = [
+                { videoId: 'kJQP7kiw5Fk', title: 'Luis Fonsi - Despacito', description: 'One of the most popular Spanish-language songs of all time.' },
+                { videoId: '9jI-z9QN6g8', title: 'Rosalía - MALAMENTE', description: 'Modern flamenco fusion from Spain.' },
+                { videoId: 'aJOTlE1K90k', title: 'Enrique Iglesias - Bailando', description: 'Spanish pop music with traditional influences.' }
+            ];
+        } else {
+            // For any other country, show the no results message
+            resultsSection.classList.add('hidden');
+            noResultsMessage.classList.remove('hidden');
+            noResultsMessage.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+
+        // Display fallback videos
+        if (fallbackVideos.length > 0) {
+            // Remove loading indicator
+            playlistContainer.innerHTML = '';
+
+            // Add fallback notice
+            const fallbackNotice = document.createElement('div');
+            fallbackNotice.className = 'bg-yellow-50 dark:bg-yellow-900/30 rounded-lg p-3 mb-6 text-center';
+            fallbackNotice.innerHTML = `
+                <p class="text-sm text-yellow-700 dark:text-yellow-300">⚠️ We're having trouble connecting to our AI service. Here are some popular ${country} songs instead.</p>
+            `;
+            playlistContainer.appendChild(fallbackNotice);
+
+            // Display videos
+            fallbackVideos.forEach(video => {
+                // Create video wrapper
+                const videoWrapper = document.createElement('div');
+                videoWrapper.className = 'fade-in mb-8';
+                videoWrapper.style.animationDelay = `${Math.random() * 0.5}s`;
+
+                // Create video container
+                const videoContainer = document.createElement('div');
+                videoContainer.className = 'video-container';
+
+                // Add video iframe
+                videoContainer.innerHTML = `
+                    <iframe
+                        src="https://www.youtube.com/embed/${video.videoId}"
+                        title="${video.title || 'YouTube video'}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                `;
+
+                videoWrapper.appendChild(videoContainer);
+
+                // Add video title and description
+                const videoInfo = document.createElement('div');
+                videoInfo.className = 'mt-2 mb-2';
+                let infoHTML = '';
+
+                if (video.title) {
+                    infoHTML += `<h4 class="font-medium text-gray-900 dark:text-white">${video.title}</h4>`;
+                }
+
+                if (video.description) {
+                    infoHTML += `<p class="text-sm text-gray-600 dark:text-gray-400">${video.description}</p>`;
+                }
+
+                videoInfo.innerHTML = infoHTML;
+                videoWrapper.appendChild(videoInfo);
+
+                // Add controls
+                const controlsDiv = document.createElement('div');
+                controlsDiv.className = 'video-controls';
+
+                // Favorite button
+                const favoriteBtn = document.createElement('button');
+                favoriteBtn.className = 'favorite-btn';
+                favoriteBtn.innerHTML = isInFavorites(video.videoId) ?
+                    '<i class="fas fa-heart mr-1"></i> Favorited' :
+                    '<i class="far fa-heart mr-1"></i> Favorite';
+
+                if (isInFavorites(video.videoId)) {
+                    favoriteBtn.classList.add('active');
+                }
+
+                favoriteBtn.addEventListener('click', () => toggleFavorite(video.videoId, favoriteBtn));
+
+                // Share button
+                const shareBtn = document.createElement('button');
+                shareBtn.className = 'share-btn';
+                shareBtn.innerHTML = '<i class="fas fa-share-alt mr-1"></i> Share';
+                shareBtn.addEventListener('click', () => copyToClipboard(video.videoId));
+
+                controlsDiv.appendChild(favoriteBtn);
+                controlsDiv.appendChild(shareBtn);
+
+                videoWrapper.appendChild(controlsDiv);
+
+                // Add to container
+                playlistContainer.appendChild(videoWrapper);
+            });
+
+            // Add retry button
+            const retryDiv = document.createElement('div');
+            retryDiv.className = 'text-center mt-4 mb-8';
+            retryDiv.innerHTML = `
+                <button id="retry-ai-btn" class="px-4 py-2 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-800/50 transition-colors">
+                    <i class="fas fa-sync-alt mr-2"></i> Try AI Search Again
+                </button>
+            `;
+            playlistContainer.appendChild(retryDiv);
+
+            // Add event listener to retry button
+            document.getElementById('retry-ai-btn').addEventListener('click', async () => {
+                await displayPlaylist(mood, musicType, country);
+            });
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+    } catch (fallbackError) {
+        console.error('Error with fallback videos:', fallbackError);
+    }
+
+    // If all fallbacks fail, show no results message
     resultsSection.classList.add('hidden');
     noResultsMessage.classList.remove('hidden');
     noResultsMessage.scrollIntoView({ behavior: 'smooth' });
@@ -557,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if we need to force a refresh for mobile browsers
     const lastVersion = localStorage.getItem('moodify-version');
-    const currentVersion = '1.6'; // Update this when making changes
+    const currentVersion = '1.7'; // Update this when making changes
 
     if (lastVersion !== currentVersion) {
         localStorage.setItem('moodify-version', currentVersion);
@@ -576,6 +722,18 @@ async function getGeminiRecommendations(prompt) {
     try {
         // Prepare the API request
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+
+        // Get country from prompt for variable interpolation
+        const countryMatch = prompt.match(/from\s+([\w\s]+)\./i);
+        const country = countryMatch ? countryMatch[1].trim() : 'the selected country';
+
+        // Get mood from prompt for variable interpolation
+        const moodMatch = prompt.match(/for\s+([\w\s]+)\s+[\w\s]+\s+music/i);
+        const mood = moodMatch ? moodMatch[1].trim() : 'the selected mood';
+
+        // Get music type from prompt for variable interpolation
+        const musicTypeMatch = prompt.match(/for\s+[\w\s]+\s+([\w\s-]+)\s+music/i);
+        const musicType = musicTypeMatch ? musicTypeMatch[1].trim() : 'the selected genre';
 
         // Create a more detailed prompt for better results
         const detailedPrompt = `I need YouTube video IDs for music based on this request: "${prompt}".
@@ -597,6 +755,8 @@ async function getGeminiRecommendations(prompt) {
         ]
         Only respond with the JSON array, nothing else.`;
 
+        console.log('Detailed prompt sent to API:', detailedPrompt);
+
         // Make the API request
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -612,11 +772,26 @@ async function getGeminiRecommendations(prompt) {
             })
         });
 
+        // Check if the response is ok
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('API error response:', errorData);
+            throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+
         // Parse the response
         const data = await response.json();
+        console.log('Full API response:', data);
+
+        // Check if we have candidates
+        if (!data.candidates || data.candidates.length === 0) {
+            console.error('No candidates in response:', data);
+            throw new Error('No candidates in API response');
+        }
 
         // Extract the text response
         const textResponse = data.candidates[0].content.parts[0].text;
+        console.log('Raw text response:', textResponse);
 
         // Try to parse the JSON response
         let videoData;
@@ -624,14 +799,31 @@ async function getGeminiRecommendations(prompt) {
             // Find JSON in the response (in case AI added extra text)
             const jsonMatch = textResponse.match(/\[\s*\{.*\}\s*\]/s);
             if (jsonMatch) {
+                console.log('Found JSON match in response');
                 videoData = JSON.parse(jsonMatch[0]);
             } else {
+                console.log('Trying to parse full response as JSON');
                 videoData = JSON.parse(textResponse);
             }
+
+            console.log('Parsed video data:', videoData);
+
+            // Validate the video data
+            if (!Array.isArray(videoData)) {
+                throw new Error('Response is not an array');
+            }
+
+            // Ensure each item has a videoId
+            videoData = videoData.filter(item => item && item.videoId);
+
+            if (videoData.length === 0) {
+                throw new Error('No valid video IDs in response');
+            }
+
         } catch (parseError) {
             console.error('Error parsing AI response:', parseError);
             console.log('Raw response:', textResponse);
-            throw new Error('Could not parse AI response');
+            throw new Error('Could not parse AI response: ' + parseError.message);
         }
 
         return videoData;
