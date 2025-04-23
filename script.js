@@ -182,14 +182,49 @@ function showToast(message) {
 // Copy YouTube link to clipboard
 function copyToClipboard(videoId) {
     const youtubeLink = `https://www.youtube.com/watch?v=${videoId}`;
-    navigator.clipboard.writeText(youtubeLink)
-        .then(() => {
+
+    // Try to use the modern clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(youtubeLink)
+            .then(() => {
+                showToast('Link copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Could not copy text with Clipboard API: ', err);
+                fallbackCopyToClipboard(youtubeLink);
+            });
+    } else {
+        // Fallback for browsers that don't support the Clipboard API
+        fallbackCopyToClipboard(youtubeLink);
+    }
+}
+
+// Fallback method for copying to clipboard
+function fallbackCopyToClipboard(text) {
+    // Create a temporary input element
+    const tempInput = document.createElement('input');
+    tempInput.style.position = 'absolute';
+    tempInput.style.left = '-1000px';
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+
+    // Select and copy the text
+    tempInput.select();
+
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
             showToast('Link copied to clipboard!');
-        })
-        .catch(err => {
-            console.error('Could not copy text: ', err);
+        } else {
             showToast('Failed to copy link');
-        });
+        }
+    } catch (err) {
+        console.error('Fallback: Could not copy text: ', err);
+        showToast('Failed to copy link');
+    }
+
+    // Clean up
+    document.body.removeChild(tempInput);
 }
 
 // Toggle favorite status
@@ -374,7 +409,22 @@ function switchTab(tabName) {
 }
 
 // Initialize the app
-document.addEventListener('DOMContentLoaded', loadSavedPreferences);
+document.addEventListener('DOMContentLoaded', () => {
+    // Load preferences and initialize the app
+    loadSavedPreferences();
+
+    // Check if we need to force a refresh for mobile browsers
+    const lastVersion = localStorage.getItem('moodify-version');
+    const currentVersion = '1.1'; // Update this when making changes
+
+    if (lastVersion !== currentVersion) {
+        localStorage.setItem('moodify-version', currentVersion);
+        // Clear any cached data if needed
+    }
+
+    // Initialize the app in recommendations tab by default
+    switchTab('recommendations');
+});
 
 // Refresh music fact when clicked
 musicFactSection.addEventListener('click', displayRandomMusicFact);
@@ -382,3 +432,7 @@ musicFactSection.addEventListener('click', displayRandomMusicFact);
 // Tab switching
 recommendationsTab.addEventListener('click', () => switchTab('recommendations'));
 favoritesTab.addEventListener('click', () => switchTab('favorites'));
+
+// Add touchstart event listeners for mobile
+recommendationsTab.addEventListener('touchstart', () => switchTab('recommendations'));
+favoritesTab.addEventListener('touchstart', () => switchTab('favorites'));

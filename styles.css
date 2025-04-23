@@ -40,6 +40,17 @@ html {
     border-radius: 0.375rem;
     font-size: 0.875rem;
     transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    touch-action: manipulation; /* Improve touch behavior */
+    cursor: pointer;
+}
+
+/* Make buttons larger on mobile for better touch targets */
+@media (max-width: 640px) {
+    .video-controls button {
+        padding: 0.625rem 1rem;
+        font-size: 1rem;
+    }
 }
 
 .favorite-btn {
@@ -87,12 +98,16 @@ html {
     background-color: #8B5CF6;
     color: white;
     border: 1px solid #7c3aed;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    touch-action: manipulation; /* Improve touch behavior */
 }
 
 .tab-inactive {
     background-color: #f3f4f6;
     color: #4b5563;
     border: 1px solid #e5e7eb;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    touch-action: manipulation; /* Improve touch behavior */
 }
 
 .dark .tab-inactive {
@@ -101,10 +116,50 @@ html {
     border: 1px solid #4b5563;
 }
 
+/* Make tabs more touch-friendly on mobile */
+@media (max-width: 640px) {
+    .tab-active, .tab-inactive {
+        padding: 0.625rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
 /* Toast notification */
 .show-toast {
     transform: translateY(0) !important;
     opacity: 1 !important;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    #toast {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%) translateY(20px);
+        width: 80%;
+        text-align: center;
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .show-toast {
+        transform: translateX(-50%) translateY(0) !important;
+    }
+
+    /* Improve spacing on mobile */
+    .video-container {
+        margin-bottom: 0.75rem;
+    }
+
+    /* Make music fact more readable on mobile */
+    #music-fact {
+        padding: 1rem;
+    }
+
+    /* Ensure buttons are large enough for touch */
+    button {
+        min-height: 44px; /* Apple's recommended minimum touch target size */
+    }
 }
 
 /* Custom animations */
